@@ -57,11 +57,9 @@ Connect as a jabber client
     (xmpp:message connection (xmpp:from message) 
         (format nil "reply to: ~a" (xmpp:message object))))
 
-===========
-CL-XMPP-EXT
-===========
-
-I made this library for implementing XMPP server component for myself.
+==============
+Component Part
+==============
 
 This extension supports:
 

@@ -21,8 +21,7 @@
     (xmpp:get-roster *connection*)
     (xmpp:presence *connection* :priority 5))
 
-(defun main (username password)
-  (defparameter *connection* (xmpp:connect :hostname "localhost"))
+(defun main (username password &key (hostname "localhost")
+  (defparameter *connection* (xmpp:connect :hostname hostname))
   (let ((resource (auth username password)))
-    (start-session resource))
-)
+    (start-session resource)))

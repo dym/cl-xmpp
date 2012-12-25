@@ -37,6 +37,7 @@
      :xml-attribute :value :get-element :get-attribute
      ;; event interface
      :event
+     :iq :iq-get :iq-set :iq-result :iq-error
      :presence
      :roster
      :xmpp-protocol-error
@@ -48,7 +49,7 @@
      :identity-
      :disco :identities
      :disco-items :items
-     :item :jid :id
+     :item :jid :id :xmlns
      :message :to :from :body :subject :type- :chatroom :password
      :simple-result :invitation
      ;; user-hooks for handling events

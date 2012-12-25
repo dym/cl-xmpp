@@ -205,6 +205,22 @@ nil - feature is support but not required
       (push (parse-result connection attribute) (attributes xml-element)))
     xml-element))
 
+(defmethod xml-element-to-iq ((connection connection) (object xml-element) (type (eql :get)) xmlns)
+  (declare (ignore connection))
+  (make-iq 'iq-get object type xmlns))
+
+(defmethod xml-element-to-iq ((connection connection) (object xml-element) (type (eql :set)) xmlns)
+  (declare (ignore connection))
+  (make-iq 'iq-set object type xmlns))
+
+(defmethod xml-element-to-iq ((connection connection) (object xml-element) (type (eql :result)) xmlns)
+  (declare (ignore connection))
+  (make-iq 'iq-result object type xmlns))
+
+(defmethod xml-element-to-iq ((connection connection) (object xml-element) (type (eql :error)) xmlns)
+  (declare (ignore connection))
+  (make-iq 'iq-error object type xmlns))
+
 (defmethod xml-element-to-event ((connection connection) (object xml-element) (name (eql :iq)))
   (let ((id (ensure-keyword (value (get-attribute object :id))))
 	(type (ensure-keyword (value (get-attribute object :type))))

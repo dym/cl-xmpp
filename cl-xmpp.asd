@@ -23,7 +23,9 @@
                  (:file "result"          :depends-on ("utility"))
                  (:file "cl-xmpp"         :depends-on ("result"))
                  (:file "multi-user-chat" :depends-on ("cl-xmpp"))
-                 (:file "administration"  :depends-on ("cl-xmpp"))))
+                 (:file "administration"  :depends-on ("cl-xmpp"))
+                 (:file "discovery"       :depends-on ("cl-xmpp"))
+                 (:file "components"      :depends-on ("cl-xmpp"))))
 
 (defmethod perform ((operation test-op) (component (eql (find-system 'cl-xmpp))))
   (operate 'load-op 'cl-xmpp-test)

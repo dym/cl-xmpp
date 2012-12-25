@@ -12,13 +12,13 @@
                  (:items "http://jabber.org/protocol/disco#items")
                  (otherwise
                    (error "Unknown type ~a (Please choose between :info and :items)" type)))))
-    (with-iq-query-sv (connection :id (or id (string (gensym "info"))) :xmlns xmlns
-                                  :to to :from from :node node))))
+    (with-iq-query (connection :id (or id (string (gensym "info"))) :xmlns xmlns
+                               :to to :from from :node node))))
 
 (defmethod answer-discovery-info ((connection connection) &key
                                   from to id node category type name features)
-  (with-iq-query-sv (connection :id id :xmlns "http://jabber.org/protocol/disco#info"
-                                :from from :to to :type "result" :node node)
+  (with-iq-query (connection :id id :xmlns "http://jabber.org/protocol/disco#info"
+                             :from from :to to :type "result" :node node)
     (cxml:with-element "identity"
       (when category (cxml:attribute "category" category))
       (when type (cxml:attribute "type" type))
@@ -28,8 +28,8 @@
                     (cxml:attribute "var" feature)))))
 
 (defmethod answer-discovery-items ((connection connection) &key from to id node items)
-  (with-iq-query-sv (connection :id id :xmlns "http://jabber.org/protocol/disco#items"
-                                :from from :to to :type "result" :node node)
+  (with-iq-query (connection :id id :xmlns "http://jabber.org/protocol/disco#items"
+                             :from from :to to :type "result" :node node)
     (loop for item in items
           collect (cxml:with-element "item" (cxml:attribute "jid" item)))))
 

@@ -558,13 +558,14 @@ call presence on your behalf if the authentication was successful."
       (cxml:with-element "priority"
 	(cxml:text (format nil "~A" priority)))))))
    
-(defmethod message ((connection connection) to body &key id (type :chat))
+(defmethod message ((connection connection) to body &key id (type :chat) from)
   (with-xml-output (connection)
-   (cxml:with-element "message"
-    (cxml:attribute "to" to)
-    (when id (cxml:attribute "id" id))
-    (when type (cxml:attribute "type" (string-downcase (string type))))
-    (cxml:with-element "body" (cxml:text body)))))
+    (cxml:with-element "message"
+      (cxml:attribute "to" to)
+      (when from (cxml:attribute "from" from))
+      (when id (cxml:attribute "id" id))
+      (when type (cxml:attribute "type" (string-downcase (string type))))
+      (cxml:with-element "body" (cxml:text body)))))
 
 (defmethod bind ((connection connection) resource)
   (with-iq (connection :id "bind_2" :type "set")
